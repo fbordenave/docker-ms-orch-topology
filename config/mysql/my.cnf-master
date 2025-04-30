@@ -1,0 +1,13 @@
+[mysqld]
+server_id=1
+default_authentication_plugin=mysql_native_password
+log_bin=mysql-bin
+sync_binlog=1
+binlog_format=row
+innodb_flush_log_at_trx_commit=1
+innodb_buffer_pool_size=128M
+innodb_log_file_size=1G
+max_connections=200
+
+report-port=3306
+report-host=mysql-master
