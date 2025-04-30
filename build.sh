@@ -90,7 +90,7 @@ ${EXEC_MASTER} "CREATE TABLE IF NOT EXISTS meta.cluster (anchor TINYINT NOT NULL
 CHARSET ascii NOT NULL DEFAULT '', cluster_domain VARCHAR(128) CHARSET ascii NOT NULL DEFAULT '',\
  repl_user VARCHAR(128) CHARSET ascii NOT NULL DEFAULT '', repl_pass VARCHAR(128) CHARSET ascii NOT NULL DEFAULT '',\
 PRIMARY KEY (anchor))" 2>&1 | grep -v "Using a password"
-${EXEC_MASTER} "INSERT INTO meta.cluster VALUES (1, 'kraken', 'kraken', 'orcUser', 'orcPass1234#')" 2>&1 | grep -v "Using a password"
+${EXEC_MASTER} "INSERT INTO meta.cluster VALUES (1, 'pocFran', 'pocFran', 'test', 'test1234#')" 2>&1 | grep -v "Using a password"
 
 echo "---> Running Orchestrator discovery on MySQL master node"
 
