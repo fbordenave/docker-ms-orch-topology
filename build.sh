@@ -54,6 +54,12 @@ docker exec mysql-master sh -c "export MYSQL_PWD='r00t-p4ssw0rd'; mariadb -u roo
 toolkit_stmt='CREATE USER "toolkit"@"%" IDENTIFIED BY "Toolkit!"; GRANT SELECT on *.* TO "toolkit"@"%";'
 docker exec mysql-master sh -c "export MYSQL_PWD='r00t-p4ssw0rd'; mariadb -u root -e '$toolkit_stmt'"
 
+#create proxysql monitor user
+proxysql_stmt='CREATE USER "monitor"@"%" IDENTIFIED BY "monitor"; GRANT USAGE, REPLICATION CLIENT ON *.* TO "monitor"@"%";'
+docker exec mysql-master sh -c "export MYSQL_PWD='r00t-p4ssw0rd'; mariadb -u root -e '$proxysql_stmt'"
+
+
+
 #check at least 1 replica is up 
 until docker exec mysql-replica1 sh -c 'export MYSQL_PWD="r00t-p4ssw0rd"; mariadb -u root -e ";"'
 do
