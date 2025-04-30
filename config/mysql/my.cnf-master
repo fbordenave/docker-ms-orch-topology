@@ -1,6 +1,6 @@
 [mysqld]
 server_id=1
-default_authentication_plugin=mysql_native_password
+#default_authentication_plugin=mysql_native_password
 log_bin=mysql-bin
 sync_binlog=1
 binlog_format=row

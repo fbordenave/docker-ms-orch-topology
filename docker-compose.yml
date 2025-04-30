@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   mysql-master:
-    image: mysql/mysql-server:8.0
+    image: mariadb
     container_name: mysql-master
     ports:
       - "3306:3306"
@@ -10,13 +10,13 @@ services:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       MYSQL_DATABASE: test_db
     volumes:
-      - ./config/mysql/my.cnf-master:/etc/mysql/my.cnf
+      - ./config/mysql/my.cnf-master:/etc/my.cnf
       - ./data/master:/var/lib/mysql
     networks:
       - docker-network
 
   mysql-replica1:
-    image: mysql/mysql-server:8.0
+    image: mariadb
     container_name: mysql-replica1
     ports:
       - "3307:3306"
@@ -26,13 +26,13 @@ services:
     depends_on:
       - mysql-master
     volumes:
-      - ./config/mysql/my.cnf-slave1:/etc/mysql/my.cnf
+      - ./config/mysql/my.cnf-slave1:/etc/my.cnf
       - ./data/slave1:/var/lib/mysql
     networks:
       - docker-network
 
   mysql-replica2:
-    image: mysql/mysql-server:8.0 
+    image: mariadb 
     container_name: mysql-replica2
     ports:
       - "3308:3306"
@@ -42,18 +42,19 @@ services:
     depends_on:
       - mysql-master
     volumes:
-      - ./config/mysql/my.cnf-slave2:/etc/mysql/my.cnf
+      - ./config/mysql/my.cnf-slave2:/etc/my.cnf
       - ./data/slave2:/var/lib/mysql
     networks:
       - docker-network  
 
   orchestrator:
-    image: openarkcode/orchestrator
+    image: percona/percona-orchestrator
     container_name: orchestrator
     ports:
       - "3000:3000"
     volumes:
-      - ./config/orchestrator/orchestrator.cnf:/etc/orchestrator.conf.json
+      - ./config/orchestrator/orchestrator.cnf:/etc/orchestrator/orchestrator.conf.json
+      - ./config/orchestrator/orc-topology.cnf:/etc/orc-topology.cnf
     networks:
       - docker-network
 
